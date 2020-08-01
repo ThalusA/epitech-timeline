@@ -1,6 +1,6 @@
 import Vue from "vue";
 
-declare module "./App.vue" {
+declare module "../App.vue" {
   interface Project {
     name: string;
     start: string | number;
