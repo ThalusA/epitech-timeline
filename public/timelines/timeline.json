@@ -1,0 +1,291 @@
+{
+    "$schema": "../timeline.schema.json",
+    "promo": 2024,
+    "semester": 2,
+    "modules": [
+      {
+        "name": "B2 - Binary Security",
+        "projects": [
+            {
+                "name": "Call For Papers",
+                "start": "2020-04-13",
+                "end": "2020-04-29",
+                "bttf": false
+            },
+            {
+                "name": "NOOB",
+                "start": "2020-05-04",
+                "end": "2020-05-17",
+                "bttf": false
+            }
+        ]
+      },
+      {
+        "name": "B2 - C Graphical Programming",
+        "projects": [
+            {
+                "name": "MyDefender",
+                "start": "2020-02-17",
+                "end": "2020-03-15",
+                "bttf": false
+            },
+            {
+                "name": "MyWorld",
+                "start": "2020-02-17",
+                "end": "2020-03-15",
+                "bttf": false
+            },
+            {
+                "name": "MyRPG",
+                "start": "2020-03-16",
+                "end": "2020-05-03",
+                "bttf": false
+            },
+            {
+                "name": "Back To The Future - MyWorld",
+                "start": "2020-04-13",
+                "end": "2020-04-19",
+                "bttf": true
+            },
+            {
+                "name": "Back To The Future - MyDefender",
+                "start": "2020-04-13",
+                "end": "2020-04-19",
+                "bttf": true
+            },
+            {
+                "name": "Back To The Future - MyDefender",
+                "start": "2020-04-13",
+                "end": "2020-04-19",
+                "bttf": true
+            },
+            {
+                "name": "Back To The Future - MyWorld",
+                "start": "2020-05-25",
+                "end": "2020-05-31",
+                "bttf": true
+            },
+            {
+                "name": "Back To The Future - MyDefender",
+                "start": "2020-05-25",
+                "end": "2020-05-31",
+                "bttf": true
+            }
+        ]
+      },
+      {
+        "name": "B2 - Elementary programming in C (Part I)",
+        "projects": [
+            {
+                "name": "Dante's star",
+                "start": "2020-03-02",
+                "end": "2020-03-22",
+                "bttf": false
+            },
+            {
+                "name": "Lem-in",
+                "start": "2020-03-23",
+                "end": "2020-04-19",
+                "bttf": false
+            },
+            {
+                "name": "Back To The Future - Dante's star",
+                "start": "2020-04-13",
+                "end": "2020-04-19",
+                "bttf": true
+            },
+            {
+                "name": "Back To The Future - Dante's star",
+                "start": "2020-05-25",
+                "end": "2020-05-31",
+                "bttf": true
+            },
+            {
+                "name": "Back To The Future - Lem-in",
+                "start": "2020-05-25",
+                "end": "2020-05-31",
+                "bttf": true
+            }
+        ]
+      },
+      {
+        "name": "B2 - Elementary programming in C (Part II)",
+        "projects": [
+            {
+                "name": "Corewar",
+                "start": "2020-04-20",
+                "end": "2020-05-17",
+                "bttf": false
+            }
+        ]
+      },
+      {
+        "name": "B2 - FR - Écrits professionnels",
+        "projects": [
+            {
+                "name": "Le mode d'emploi : prendre le lecteur par la main",
+                "start": "2020-01-27",
+                "end": "2020-02-16",
+                "bttf": false
+            },
+            {
+                "name": "Faire préciser",
+                "start": "2020-02-24",
+                "end": "2020-03-08",
+                "bttf": false
+            },
+            {
+                "name": "La lettre de vente : informer, argumenter, valoriser",
+                "start": "2020-03-16",
+                "end": "2020-04-12",
+                "bttf": false
+            }
+        ]
+      },
+      {
+        "name": "B2 - Introduction to A.I.",
+        "projects": [
+            {
+                "name": "Need4Stek",
+                "start": "2020-04-06",
+                "end": "2020-05-10",
+                "bttf": false
+            },
+            {
+                "name": "Back To The Future - Need4Stek",
+                "start": "2020-05-25",
+                "end": "2020-05-31",
+                "bttf": true
+            }
+        ]
+      },
+      {
+        "name": "B2 - Introduction to Web Development",
+        "projects": [
+            {
+                "name": "EPyTodo",
+                "start": "2020-03-16",
+                "end": "2020-04-12",
+                "bttf": false
+            },
+            {
+                "name": "Back To The Future - EPyTodo",
+                "start": "2020-05-25",
+                "end": "2020-05-31",
+                "bttf": true
+            }
+        ]
+      },
+      {
+        "name": "B2 - Mathematics",
+        "projects": [
+            {
+                "name": "106bombyx",
+                "start": "2020-02-17",
+                "end": "2020-03-01",
+                "bttf": false
+            },
+            {
+                "name": "107transfer",
+                "start": "2020-03-02",
+                "end": "2020-03-15",
+                "bttf": false
+            },
+            {
+                "name": "108trigo",
+                "start": "2020-03-16",
+                "end": "2020-03-29",
+                "bttf": false
+            },
+            {
+                "name": "109titration",
+                "start": "2020-03-30",
+                "end": "2020-04-12",
+                "bttf": false
+            },
+            {
+                "name": "110borwein",
+                "start": "2020-04-13",
+                "end": "2020-04-26",
+                "bttf": false
+            }
+        ]
+      },
+      {
+        "name": "B2 - Networks and Systems Administration",
+        "projects": [
+            {
+                "name": "MyWeb",
+                "start": "2020-02-24",
+                "end": "2020-03-22",
+                "bttf": false
+            }
+        ]
+      },
+      {
+        "name": "B2 - Shell Programming",
+        "projects": [
+            {
+                "name": "MiniShell 2",
+                "start": "2020-03-30",
+                "end": "2020-04-26",
+                "bttf": false
+            },
+            {
+                "name": "42sh",
+                "start": "2020-04-27",
+                "end": "2020-05-24",
+                "bttf": false
+            },
+            {
+                "name": "Back To The Future - MiniShell 2",
+                "start": "2020-05-25",
+                "end": "2020-05-31",
+                "bttf": true
+            }
+        ]
+      },
+      {
+        "name": "B2 - Unix System programming",
+        "projects": [
+            {
+                "name": "Navy",
+                "start": "2020-02-17",
+                "end": "2020-03-08",
+                "bttf": false
+            },
+            {
+                "name": "Tetris",
+                "start": "2020-03-09",
+                "end": "2020-03-29",
+                "bttf": false
+            },
+            {
+                "name": "Back To The Future - Navy",
+                "start": "2020-04-13",
+                "end": "2020-04-19",
+                "bttf": true
+            },
+            {
+                "name": "Back To The Future - Tetris",
+                "start": "2020-04-13",
+                "end": "2020-04-19",
+                "bttf": true
+            },
+            {
+                "name": "Back To The Future - Navy",
+                "start": "2020-05-25",
+                "end": "2020-05-31",
+                "bttf": true
+            },
+            {
+                "name": "Back To The Future - Tetris",
+                "start": "2020-05-25",
+                "end": "2020-05-31",
+                "bttf": true
+            }
+        ]
+      }
+    ]
+  }
+  
