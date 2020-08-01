@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Timeline msg="Welcome to Your Vue.js + TypeScript App" />
+    <Timeline />
   </div>
 </template>
 
