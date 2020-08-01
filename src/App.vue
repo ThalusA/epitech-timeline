@@ -25,7 +25,6 @@ export default class App extends Vue {
   @Prop({ type: [Number, String] }) promotion!: number | string;
   @Prop({ type: [Number, String] }) semester!: number | string;
   @Prop() timelineData!: TimelineInfo;
-
   @Prop({
     type: Array,
     default: () => [
