@@ -4,11 +4,11 @@ declare module "../scripts/timeline" {
   interface BarData {
     x: string;
     y: Array<number>;
+    z: string;
     fillcolor: string;
   }
   
   interface Bar {
-    name: string;
     data: Array<BarData>;
   }
   
@@ -29,8 +29,10 @@ declare module "../scripts/timeline" {
     semester: string | number;
     modules: Array<Module>;
   }
-  
+
   interface ApexChartsLabel {
+    seriesZ: Array<Array<string>>;
+    series: Array<Bar>;
     labels: Array<string>;
   }
   
