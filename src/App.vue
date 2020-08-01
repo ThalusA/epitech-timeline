@@ -39,7 +39,8 @@ export default class App extends Vue {
         packages: ["timeline"]
       },
       chartOptions: {
-        height: 1000
+        height: 1000,
+        colorByRowLabel: true
       }
     };
   }
