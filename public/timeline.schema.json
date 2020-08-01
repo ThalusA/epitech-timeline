@@ -1,0 +1,60 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "description": "JSON Schema definition of Timeline",
+    "type": "object",
+    "properties": {
+        "promo": {
+            "type": ["string", "number"],
+            "description": "School promotion year"
+        },
+        "semester": {
+            "type": ["string", "number"],
+            "description": "School semester"
+        },
+        "modules": {
+            "type": "array",
+            "description": "List of modules",
+            "items": {
+                "type": "object",
+                "description": "Module object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "description": "Module name"
+                    },
+                    "projects": {
+                        "type": "array",
+                        "description": "List of projects inside a module",
+                        "items": {
+                            "type": "object",
+                            "description": "Project object",
+                            "properties": {
+                                "name": {
+                                    "type": "string",
+                                    "description": "Project name"
+                                },
+                                "start": {
+                                    "type": ["string", "number"],
+                                    "description": "Start date of the project"
+                                },
+                                "end": {
+                                    "type": ["string", "number"],
+                                    "description": "Start date of the project"
+                                },
+                                "bttf": {
+                                    "type": "boolean",
+                                    "description": "Check if the project is a back to the future project or not"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "required": [
+      "promo",
+      "semester",
+      "modules"
+    ]
+  }
