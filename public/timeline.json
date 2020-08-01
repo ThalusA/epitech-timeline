@@ -1,5 +1,5 @@
 {
-    "$schema": "http://github.com/ThalusA/epitech-timeline/blob/master/public/timeline.schema.json",
+    "$schema": "https://raw.githubusercontent.com/ThalusA/epitech-timeline/master/public/timeline.schema.json",
     "promo": 2024,
     "semester": 2,
     "modules": [
