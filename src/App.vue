@@ -8,12 +8,13 @@
       :data="chartData"
       :settings="chartSettings"
       :options="chartOptions"
+      :events="chartEvents"
     />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
+import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import { GChart } from "vue-google-charts";
 
 @Component({
@@ -22,17 +23,25 @@ import { GChart } from "vue-google-charts";
   }
 })
 export default class App extends Vue {
-  @Prop({ type: [Number, String] }) promotion!: number | string;
-  @Prop({ type: [Number, String] }) semester!: number | string;
   @Prop() timelineData!: TimelineInfo;
+  @Prop({ type: [String, Number], default: "..." }) promotion!: string | number;
+  @Prop({ type: [String, Number], default: "..." }) semester!: string | number;
   @Prop({
     type: Array,
     default: () => [
       ["Module", "Project", "Start", "End"],
-      ["Now", "Now", new Date(), new Date()]
+      ["Timeline", "Now", new Date(), new Date()]
     ]
   })
-  chartData!: Array<Array<string | number | Date>>;
+  chartData!: Array<Array<string | Date>>;
+  @Watch("timelineData") onTimelineDataChanged() {
+    this.promotion = this.timelineData.promo;
+    this.semester = this.timelineData.semester;
+    this.chartData = this.fetchTimeline();
+  }
+  @Watch("chartData") onChartDataChanged() {
+    this.setupNowLine();
+  }
   data() {
     return {
       chartSettings: {
@@ -40,23 +49,60 @@ export default class App extends Vue {
       },
       chartOptions: {
         height: 1000,
-        colorByRowLabel: true
+        width: 1302,
+        timeline: {
+          colorByRowLabel: true
+        }
+      },
+      chartEvents: {
+        onmouseover: this.eventOnmouseover,
+        onmouseout: this.eventOnmouseout
       }
     };
   }
-  async beforeMount() {
+  async mounted() {
     const response = await fetch("timeline.json");
     if (!response.ok)
       throw `Could not get timeline data: ${response.statusText}`;
     this.timelineData = await response.json();
-    await this.fetchTimeline();
   }
-  async fetchTimeline() {
-    this.promotion = this.timelineData.promo;
-    this.semester = this.timelineData.semester;
+  eventOnmouseover({ row }: { row: number }) {
+    if (row === 0) {
+      const tooltipElement = document
+        .getElementsByClassName("google-visualization-tooltip")
+        .item(0) as HTMLElement | null;
+      if (tooltipElement !== null) tooltipElement.style.display = "none";
+    }
+    this.setupNowLine();
+  }
+  eventOnmouseout() {
+    this.setupNowLine();
+  }
+  setupNowLine() {
+    const tableElement = document.querySelector("rect[fill='none']");
+    if (tableElement !== null) {
+      const tableWidth = tableElement.getAttribute("width");
+      const tableHeight = tableElement.getAttribute("height");
+      if (tableWidth !== null && tableHeight !== null) {
+        const lineElement = document.querySelector(
+          `rect[x='${parseFloat(tableWidth) - 1.5}']`
+        );
+        if (lineElement !== null) {
+          lineElement.setAttribute("height", `${tableHeight}px`);
+          lineElement.setAttribute("width", "1px");
+          lineElement.setAttribute("y", "0");
+        }
+      }
+    }
+  }
+  fetchTimeline() {
+    const chartData: Array<Array<string | Date>> = [
+      ["Module", "Project", "Start", "End"],
+      ["‎‎‎‎‎‎Timeline", "Now", new Date(), new Date()]
+    ];
     for (const moduleInfo of this.timelineData.modules) {
       for (const projectInfo of moduleInfo.projects) {
-        this.chartData.push([
+        chartData.push([
           moduleInfo.name,
           projectInfo.name,
           new Date(projectInfo.start),
@@ -64,6 +110,7 @@ export default class App extends Vue {
         ]);
       }
     }
+    return chartData;
   }
 }
 </script>
