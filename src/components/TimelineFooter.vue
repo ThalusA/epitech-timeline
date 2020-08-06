@@ -16,10 +16,13 @@
         shigumitsu.github.io
       </a>
       -
-      <a href="javascript:void(0);" id="switch" v-on:click="toggleDarkMode">
+      <a href="javascript:void(0);" v-on:click="toggleDarkMode">
         Switch to {{ darkMode === true ? "light" : "dark" }}
       </a>
-      - <a href="javascript:void(0);" id="bttf-button">Toggle BTTF display</a>
+      -
+      <a href="javascript:void(0);" v-on:click="toggleBTTF"
+        >Toggle BTTF display</a
+      >
       - Scroll down to read the changelog
     </p>
     <hr />
@@ -34,9 +37,14 @@ import { Prop, Vue, Component } from "vue-property-decorator";
 @Component({})
 export default class TimelineFooter extends Vue {
   @Prop({ type: Boolean, default: false }) darkMode!: boolean;
+  @Prop({ type: Boolean, default: true }) bttfDisplay!: boolean;
   toggleDarkMode() {
     document.body.classList.toggle("dark");
     this.darkMode = !this.darkMode;
+  }
+  toggleBTTF() {
+    this.bttfDisplay = !this.bttfDisplay;
+    this.$emit("bttfToggle", this.bttfDisplay);
   }
 }
 </script>

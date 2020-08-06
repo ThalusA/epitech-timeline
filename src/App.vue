@@ -2,7 +2,7 @@
   <div id="app">
     <TimelineHeader :promotion="promotion" :semester="semester" />
     <Timeline :chartData="chartData" />
-    <TimelineFooter />
+    <TimelineFooter v-on:bttfToggle="bttfToggle" />
   </div>
 </template>
 
@@ -20,7 +20,7 @@ import Timeline from "./components/Timeline.vue";
   }
 })
 export default class App extends Vue {
-  @Prop() timelineData!: TimelineInfo;
+  @Prop({ type: Object }) timelineData!: TimelineInfo;
   @Prop({ type: [String, Number], default: "..." }) promotion!: string | number;
   @Prop({ type: [String, Number], default: "..." }) semester!: string | number;
   @Prop({
@@ -31,10 +31,28 @@ export default class App extends Vue {
     ]
   })
   chartData!: Array<Array<string | Date>>;
+  @Prop({
+    type: Array,
+    default: () => [
+      ["Module", "Project", "Start", "End"],
+      ["Timeline", "Now", new Date(), new Date()]
+    ]
+  })
+  chartDataNoBTTF!: Array<Array<string | Date>>;
+  @Prop({
+    type: Array,
+    default: () => [
+      ["Module", "Project", "Start", "End"],
+      ["Timeline", "Now", new Date(), new Date()]
+    ]
+  })
+  chartDataBTTF!: Array<Array<string | Date>>;
   @Watch("timelineData") onTimelineDataChanged() {
     this.promotion = this.timelineData.promo;
     this.semester = this.timelineData.semester;
-    this.chartData = this.fetchTimeline();
+    this.chartDataBTTF = this.processTimeline();
+    this.chartData = this.chartDataBTTF;
+    this.chartDataNoBTTF = this.processTimeline(false);
   }
   async mounted() {
     const response = await fetch("timeline.json");
@@ -42,19 +60,25 @@ export default class App extends Vue {
       throw `Could not get timeline data: ${response.statusText}`;
     this.timelineData = await response.json();
   }
-  fetchTimeline() {
+  bttfToggle(state: boolean) {
+    if (state == true) this.chartData = this.chartDataBTTF;
+    else if (state == false) this.chartData = this.chartDataNoBTTF;
+  }
+  processTimeline(bttf = true) {
     const chartData: Array<Array<string | Date>> = [
       ["Module", "Project", "Start", "End"],
       ["‎‎‎‎‎‎Timeline", "Now", new Date(), new Date()]
     ];
     for (const moduleInfo of this.timelineData.modules) {
       for (const projectInfo of moduleInfo.projects) {
-        chartData.push([
-          moduleInfo.name,
-          projectInfo.name,
-          new Date(projectInfo.start),
-          new Date(projectInfo.end)
-        ]);
+        if (bttf == true || projectInfo.bttf == false) {
+          chartData.push([
+            moduleInfo.name,
+            projectInfo.name,
+            new Date(projectInfo.start),
+            new Date(projectInfo.end)
+          ]);
+        }
       }
     }
     return chartData;
