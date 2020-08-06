@@ -17,7 +17,7 @@
       </a>
       -
       <a href="javascript:void(0);" v-on:click="toggleDarkMode">
-        Switch to {{ darkMode === true ? "light" : "dark" }}
+        Switch to {{ this.darkMode === true ? "light" : "dark" }}
       </a>
       -
       <a href="javascript:void(0);" v-on:click="toggleBTTF"
@@ -36,11 +36,36 @@ import { Prop, Vue, Component } from "vue-property-decorator";
 
 @Component({})
 export default class TimelineFooter extends Vue {
-  @Prop({ type: Boolean, default: false }) darkMode!: boolean;
+  @Prop({
+    type: Boolean,
+    default: () => {
+      const state = localStorage.getItem("theme");
+      if (state !== null) {
+        if (state === "dark") return true;
+        else if (state === "light") return false;
+      }
+      localStorage.setItem("theme", "light");
+      return false;
+    }
+  })
+  darkMode!: boolean;
   @Prop({ type: Boolean, default: true }) bttfDisplay!: boolean;
+  mounted() {
+    if (this.darkMode === true) {
+      document.body.classList.add("dark");
+    } else if (this.darkMode === false) {
+      document.body.classList.remove("dark");
+    }
+  }
   toggleDarkMode() {
-    document.body.classList.toggle("dark");
     this.darkMode = !this.darkMode;
+    if (this.darkMode === true) {
+      document.body.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else if (this.darkMode === false) {
+      document.body.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
   }
   toggleBTTF() {
     this.bttfDisplay = !this.bttfDisplay;
