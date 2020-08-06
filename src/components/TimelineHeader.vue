@@ -7,9 +7,10 @@
 </template>
 
 <script lang="ts">
-import { Prop, Vue } from "vue-property-decorator";
+import { Prop, Vue, Component } from "vue-property-decorator";
 
-export default class App extends Vue {
+@Component({})
+export default class TimelineHeader extends Vue {
   @Prop({ type: [String, Number], default: "..." }) promotion!: string | number;
   @Prop({ type: [String, Number], default: "..." }) semester!: string | number;
 }
