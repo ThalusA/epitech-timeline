@@ -3,9 +3,16 @@
     <hr />
     <p class="bottom">
       See the project on
-      <a href="https://gitlab.com/epi-codes/Epitech-2023-Timeline">GitLab</a>
+      <a
+        href="https://gitlab.com/epi-codes/Epitech-2023-Timeline"
+        target="_blank"
+        >GitLab</a
+      >
       - Based on
-      <a href="https://github.com/Shigumitsu/shigumitsu.github.io">
+      <a
+        href="https://github.com/Shigumitsu/shigumitsu.github.io"
+        target="_blank"
+      >
         shigumitsu.github.io
       </a>
       -
