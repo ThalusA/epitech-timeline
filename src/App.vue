@@ -72,11 +72,12 @@ export default class App extends Vue {
     for (const moduleInfo of this.timelineData.modules) {
       for (const projectInfo of moduleInfo.projects) {
         if (bttf == true || projectInfo.bttf == false) {
+          const endDate = new Date(projectInfo.end);
           chartData.push([
             moduleInfo.name,
             projectInfo.name,
             new Date(projectInfo.start),
-            new Date(projectInfo.end)
+            new Date(endDate.setDate(endDate.getDate() + 1))
           ]);
         }
       }
