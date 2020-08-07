@@ -19,7 +19,7 @@ import { GChart } from "vue-google-charts";
     GChart
   }
 })
-export default class Timeline extends Vue {
+export default class TimelineChart extends Vue {
   @Prop({
     type: Array,
     default: () => [

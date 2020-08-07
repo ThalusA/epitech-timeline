@@ -19,8 +19,8 @@
       - Scroll down to read the changelog
     </p>
     <hr />
-    <div v-if="commits.length > 0">
-      <h3>Changelog</h3>
+    <h3>Changelog</h3>
+    <div v-if="commits.length > 0" id="changelog-container">
       <TimelineCommit
         v-for="(commit, index) in commits"
         :key="`commit-${index}`"
