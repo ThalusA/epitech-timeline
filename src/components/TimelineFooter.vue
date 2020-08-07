@@ -3,16 +3,9 @@
     <hr />
     <p class="bottom">
       See the project on
-      <a
-        href="https://gitlab.com/epi-codes/Epitech-2023-Timeline"
-        target="_blank"
-        >GitLab</a
-      >
+      <a :href="repoURL" target="_blank">GitLab</a>
       - Based on
-      <a
-        href="https://github.com/Shigumitsu/shigumitsu.github.io"
-        target="_blank"
-      >
+      <a :href="basedURL" target="_blank">
         shigumitsu.github.io
       </a>
       -
@@ -26,16 +19,48 @@
       - Scroll down to read the changelog
     </p>
     <hr />
-    <h3>Changelog</h3>
-    <div id="changelog-container">Loading changelog...</div>
+    <div v-if="commits.length > 0">
+      <h3>Changelog</h3>
+      <TimelineCommit
+        v-for="(commit, index) in commits"
+        :key="`commit-${index}`"
+        :commitURL="commit.web_url"
+        :commitTitle="commit.title"
+        :commitMessage="commit.message"
+        :commitDate="commit.created_at"
+      >
+      </TimelineCommit>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Prop, Vue, Component } from "vue-property-decorator";
+import TimelineCommit from "./TimelineCommit.vue";
 
-@Component({})
+@Component({
+  components: {
+    TimelineCommit
+  }
+})
 export default class TimelineFooter extends Vue {
+  @Prop({
+    type: String,
+    default: "https://gitlab.com/epi-codes/Epitech-2023-Timeline"
+  })
+  readonly repoURL!: string;
+  @Prop({
+    type: String,
+    default:
+      "https://gitlab.com/api/v4/projects/epi-codes%2fEpitech-2023-Timeline/repository/commits"
+  })
+  readonly commitsURL!: string;
+  @Prop({
+    type: String,
+    default: "https://github.com/Shigumitsu/shigumitsu.github.io"
+  })
+  readonly basedURL!: string;
+  @Prop({ type: Array, default: [] }) commits!: Array<Commit>;
   @Prop({
     type: Boolean,
     default: () => {
@@ -50,12 +75,17 @@ export default class TimelineFooter extends Vue {
   })
   darkMode!: boolean;
   @Prop({ type: Boolean, default: true }) bttfDisplay!: boolean;
-  mounted() {
+  async mounted() {
     if (this.darkMode === true) {
       document.body.classList.add("dark");
     } else if (this.darkMode === false) {
       document.body.classList.remove("dark");
     }
+    this.$emit("bttfToggle", this.bttfDisplay);
+    const response = await fetch(this.commitsURL);
+    if (!response.ok)
+      throw `Could not get commits data: ${response.statusText}`;
+    this.commits = await response.json();
   }
   toggleDarkMode() {
     this.darkMode = !this.darkMode;

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="timeline-container">
     <GChart
       type="Timeline"
       :data="chartData"
@@ -41,7 +41,8 @@ export default class Timeline extends Vue {
       },
       chartEvents: {
         onmouseover: this.eventOnmouseover,
-        onmouseout: this.eventOnmouseout
+        onmouseout: this.setupNowLine,
+        ready: this.setupNowLine
       }
     };
   }
@@ -52,10 +53,6 @@ export default class Timeline extends Vue {
         .item(0) as HTMLElement | null;
       if (tooltipElement !== null) tooltipElement.style.display = "none";
     }
-    this.setupNowLine();
-  }
-  eventOnmouseout() {
-    this.setupNowLine();
   }
   setupNowLine() {
     const tableElement = document.querySelector("rect[fill='none']");

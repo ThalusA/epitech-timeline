@@ -9,7 +9,7 @@
 <script lang="ts">
 import { Prop, Vue, Component } from "vue-property-decorator";
 
-@Component({})
+@Component
 export default class TimelineHeader extends Vue {
   @Prop({ type: [String, Number], default: "..." }) promotion!: string | number;
   @Prop({ type: [String, Number], default: "..." }) semester!: string | number;
