@@ -42,7 +42,7 @@ h3 {
   text-align: center;
 }
 
-hr{
+hr {
   width:80%;
   margin:0 auto;
   border:none;
@@ -88,13 +88,15 @@ html, body {
   height: 100%;
   margin: 0;
 }
-
-section.timeline {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
   
-section.timeline h2 {
+#timeline-header {
   margin-top: 0;
+}
+
+#changelog-container .commit {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
 }

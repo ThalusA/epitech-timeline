@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="timeline-header">
     <title>Epitech Timeline - Promotion {{ promotion }}</title>
     <h1>Epitech Timeline - Promotion {{ promotion }}</h1>
     <h2>Semester {{ semester }}</h2>
