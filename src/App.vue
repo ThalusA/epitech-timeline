@@ -1,7 +1,12 @@
 <template>
   <div id="app">
-    <TimelineHeader :promotion="promotion" :semester="semester" />
-    <Timeline :chartData="chartData" />
+    <TimelineHeader
+      :promotion="timelineData.promo"
+      :semester="timelineData.semester"
+    />
+    <TimelineChart
+      :chartData="bttfDisplay === true ? chartDataBTTF : chartDataNoBTTF"
+    />
     <TimelineFooter v-on:bttfToggle="bttfToggle" />
   </div>
 </template>
@@ -10,27 +15,22 @@
 import { Component, Prop, Vue, Watch } from "vue-property-decorator";
 import TimelineHeader from "./components/TimelineHeader.vue";
 import TimelineFooter from "./components/TimelineFooter.vue";
-import Timeline from "./components/Timeline.vue";
+import TimelineChart from "./components/TimelineChart.vue";
 
 @Component({
   components: {
-    Timeline,
+    TimelineChart,
     TimelineHeader,
     TimelineFooter
   }
 })
 export default class App extends Vue {
-  @Prop({ type: Object }) timelineData!: TimelineInfo;
-  @Prop({ type: [String, Number], default: "..." }) promotion!: string | number;
-  @Prop({ type: [String, Number], default: "..." }) semester!: string | number;
   @Prop({
-    type: Array,
-    default: () => [
-      ["Module", "Project", "Start", "End"],
-      ["Timeline", "Now", new Date(), new Date()]
-    ]
+    type: Object,
+    default: { promo: "...", semester: "...", modules: [] }
   })
-  chartData!: Array<Array<string | Date>>;
+  timelineData!: TimelineInfo;
+  @Prop({ type: Boolean, default: true }) bttfDisplay!: boolean;
   @Prop({
     type: Array,
     default: () => [
@@ -48,10 +48,7 @@ export default class App extends Vue {
   })
   chartDataBTTF!: Array<Array<string | Date>>;
   @Watch("timelineData") onTimelineDataChanged() {
-    this.promotion = this.timelineData.promo;
-    this.semester = this.timelineData.semester;
     this.chartDataBTTF = this.processTimeline();
-    this.chartData = this.chartDataBTTF;
     this.chartDataNoBTTF = this.processTimeline(false);
   }
   async mounted() {
@@ -61,8 +58,7 @@ export default class App extends Vue {
     this.timelineData = await response.json();
   }
   bttfToggle(state: boolean) {
-    if (state == true) this.chartData = this.chartDataBTTF;
-    else if (state == false) this.chartData = this.chartDataNoBTTF;
+    this.bttfDisplay = state;
   }
   processTimeline(bttf = true) {
     const chartData: Array<Array<string | Date>> = [
