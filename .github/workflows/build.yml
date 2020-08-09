@@ -26,9 +26,7 @@ jobs:
     - uses: actions/setup-node@master
 
     # Install all node dependencies
-    - name: Run a multi-line script
     - run: npm install
 
     # Build the project
-    - name: Run a multi-line script
     - run: npm run build
