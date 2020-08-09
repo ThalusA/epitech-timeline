@@ -50,17 +50,33 @@ export default class TimelineChart extends Vue {
         .item(0) as HTMLElement | null;
       if (tooltipElement !== null) tooltipElement.style.display = "none";
     }
+    this.setupNowLine();
   }
   setupNowLine() {
-    const tableElement = document.querySelector("rect[fill='none']");
+    const svgPath =
+      "#timeline-container > div > div > div:nth-child(1) > div > svg > ";
+    const tableElement = document.querySelector(
+      `${svgPath} g:nth-child(2) > rect:nth-child(132)`
+    );
     if (tableElement !== null) {
-      const tableWidth = tableElement.getAttribute("width");
       const tableHeight = tableElement.getAttribute("height");
-      if (tableWidth !== null && tableHeight !== null) {
+      if (tableHeight !== null) {
         const lineElement = document.querySelector(
-          `rect[x='${parseFloat(tableWidth) - 1.5}']`
+          `${svgPath} g:nth-child(5) > rect:nth-child(1)`
         );
+        const nowOverElement = document.querySelector(
+          `${svgPath} g:nth-child(7) > text:nth-child(2)`
+        );
+        if (nowOverElement !== null && nowOverElement.textContent === "Now") {
+          const lineElementSnd = document.querySelector(
+            `${svgPath} g:nth-child(7) > rect:nth-child(1)`
+          );
+          if (lineElementSnd !== null) {
+            lineElementSnd.setAttribute("style", "display:none;");
+          }
+        }
         if (lineElement !== null) {
+          lineElement.removeAttribute("style");
           lineElement.setAttribute("height", `${tableHeight}px`);
           lineElement.setAttribute("width", "1px");
           lineElement.setAttribute("y", "0");
