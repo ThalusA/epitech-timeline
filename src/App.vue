@@ -12,10 +12,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from "vue-property-decorator";
+import { Component, Prop, Vue } from "vue-property-decorator";
 import TimelineHeader from "./components/TimelineHeader.vue";
 import TimelineFooter from "./components/TimelineFooter.vue";
 import TimelineChart from "./components/TimelineChart.vue";
+import { AsyncComputed } from "./scripts/AsyncComputed";
 
 @Component({
   components: {
@@ -25,55 +26,50 @@ import TimelineChart from "./components/TimelineChart.vue";
   }
 })
 export default class App extends Vue {
-  @Prop({
-    type: Object,
-    default: { promo: "...", semester: "...", modules: [] }
-  })
-  timelineData!: TimelineInfo;
   @Prop({ type: Boolean, default: true }) bttfDisplay!: boolean;
-  @Prop({
-    type: Array,
-    default: () => [
-      ["Module", "Project", "Start", "End"],
-      ["Timeline", "Now", new Date(), new Date()]
-    ]
-  })
-  chartDataNoBTTF!: Array<Array<string | Date>>;
-  @Prop({
-    type: Array,
-    default: () => [
-      ["Module", "Project", "Start", "End"],
-      ["Timeline", "Now", new Date(), new Date()]
-    ]
-  })
-  chartDataBTTF!: Array<Array<string | Date>>;
-  @Watch("timelineData") onTimelineDataChanged() {
-    this.chartDataBTTF = this.processTimeline();
-    this.chartDataNoBTTF = this.processTimeline(false);
+  get chartDataBTTF() {
+    return this.processTimeline();
   }
-  async mounted() {
+  get chartDataNoBTTF() {
+    return this.processTimeline(false);
+  }
+  @AsyncComputed({ default: { promo: "...", semester: "...", modules: [] } })
+  async timelineData() {
     const response = await fetch("timeline.json");
     if (!response.ok)
       throw `Could not get timeline data: ${response.statusText}`;
-    this.timelineData = await response.json();
+    const timelineData: TimelineInfo = await response.json();
+    return timelineData;
   }
   bttfToggle(state: boolean) {
     this.bttfDisplay = state;
   }
   processTimeline(bttf = true) {
-    const chartData: Array<Array<string | Date>> = [
-      ["Module", "Project", "Start", "End"],
-      ["‎‎‎‎‎‎Timeline", "Now", new Date(), new Date()]
+    const chartData: Array<Array<string | Date | object>> = [
+      [
+        { type: "string", id: "Module" },
+        { type: "string", id: "Project" },
+        { type: "string", role: "tooltip" },
+        { type: "date", id: "Start" },
+        { type: "date", id: "End" }
+      ],
+      ["‎‎‎‎‎‎Timeline", "Now", "", new Date(), new Date()]
     ];
-    for (const moduleInfo of this.timelineData.modules) {
+    const timelineData = (this.timelineData as unknown) as TimelineInfo;
+    for (const moduleInfo of timelineData.modules) {
       for (const projectInfo of moduleInfo.projects) {
         if (bttf == true || projectInfo.bttf == false) {
           const endDate = new Date(projectInfo.end);
+          const startDate = new Date(projectInfo.start);
+          const finalEndDate = new Date(endDate.setDate(endDate.getDate() + 1));
+          const tooltip = `
+          `;
           chartData.push([
             moduleInfo.name,
             projectInfo.name,
-            new Date(projectInfo.start),
-            new Date(endDate.setDate(endDate.getDate() + 1))
+            tooltip,
+            startDate,
+            finalEndDate
           ]);
         }
       }
@@ -83,8 +79,8 @@ export default class App extends Vue {
 }
 </script>
 
-<style>
+<style lang="scss">
 @import "https://fonts.googleapis.com/css?family=Roboto:100,300";
-@import "./styles/style.css";
-@import "./styles/dark.css";
+@import "./styles/style.scss";
+@import "./styles/dark.scss";
 </style>

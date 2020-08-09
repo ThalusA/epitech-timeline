@@ -22,10 +22,10 @@ import moment from "moment";
 
 @Component
 export default class TimelineHeader extends Vue {
-  @Prop({ type: String, default: "..." }) commitURL!: string;
-  @Prop({ type: String, default: "..." }) commitTitle!: string;
-  @Prop({ type: String, default: "..." }) commitMessage!: string;
-  @Prop({ type: String, default: "..." }) commitDate!: string;
+  @Prop({ type: String, required: true }) commitURL!: string;
+  @Prop({ type: String, required: true }) commitTitle!: string;
+  @Prop({ type: String, required: true }) commitMessage!: string;
+  @Prop({ type: String, required: true }) commitDate!: string;
   get calculatedDate() {
     return moment(this.commitDate).fromNow();
   }
