@@ -17,6 +17,7 @@ import TimelineHeader from "./components/TimelineHeader.vue";
 import TimelineFooter from "./components/TimelineFooter.vue";
 import TimelineChart from "./components/TimelineChart.vue";
 import { AsyncComputed } from "./scripts/AsyncComputed";
+import moment from "moment";
 
 @Component({
   components: {
@@ -59,17 +60,43 @@ export default class App extends Vue {
     for (const moduleInfo of timelineData.modules) {
       for (const projectInfo of moduleInfo.projects) {
         if (bttf == true || projectInfo.bttf == false) {
-          const endDate = new Date(projectInfo.end);
-          const startDate = new Date(projectInfo.start);
-          const finalEndDate = new Date(endDate.setDate(endDate.getDate() + 1));
+          const startDate = moment(projectInfo.start);
+          const endDate = moment(projectInfo.end).add(1, "days");
           const tooltip = `
+            <ul class='google-visualization-tooltip-item-list'>
+              <li>
+                <span style='font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;'>
+                  ${projectInfo.name}
+                </span>
+              </li>
+            </ul>
+            <div class='google-visualization-tooltip-separator'></div>
+              <li data-logicalname="action#" class="google-visualization-tooltip-action">
+                <span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">
+                  ${moduleInfo.name}:
+                </span>
+                <span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">
+                  ${moment(startDate).format("D MMM")} -
+                  ${moment(endDate).format("D MMM")}
+                </span>
+              </li>
+              <li data-logicalname="action#" class="google-visualization-tooltip-action">
+                <span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:bold;">
+                  Duration:
+                </span>
+                <span style="font-family:Arial;font-size:12px;color:#000000;opacity:1;margin:0;font-style:none;text-decoration:none;font-weight:none;">
+                  ${moment.duration(endDate.diff(startDate)).humanize()}
+                </span>
+              </li>
+            <ul class='google-visualization-tooltip-action-list'>
+            </ul>
           `;
           chartData.push([
             moduleInfo.name,
             projectInfo.name,
             tooltip,
-            startDate,
-            finalEndDate
+            startDate.toDate(),
+            endDate.toDate()
           ]);
         }
       }
