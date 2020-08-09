@@ -20,13 +20,7 @@ import { GChart } from "vue-google-charts";
   }
 })
 export default class TimelineChart extends Vue {
-  @Prop({
-    type: Array,
-    default: () => [
-      ["Module", "Project", "Start", "End"],
-      ["Timeline", "Now", new Date(), new Date()]
-    ]
-  })
+  @Prop({ type: Array, required: true })
   chartData!: Array<Array<string | Date>>;
   data() {
     return {
@@ -34,9 +28,12 @@ export default class TimelineChart extends Vue {
         packages: ["timeline"]
       },
       chartOptions: {
-        height: 700,
+        height: 780,
         timeline: {
           colorByRowLabel: true
+        },
+        tooltip: {
+          isHtml: true
         }
       },
       chartEvents: {

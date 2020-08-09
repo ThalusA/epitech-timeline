@@ -11,7 +11,7 @@ import { Prop, Vue, Component } from "vue-property-decorator";
 
 @Component
 export default class TimelineHeader extends Vue {
-  @Prop({ type: [String, Number], default: "..." }) promotion!: string | number;
-  @Prop({ type: [String, Number], default: "..." }) semester!: string | number;
+  @Prop({ type: [String, Number], required: true }) promotion!: string | number;
+  @Prop({ type: [String, Number], required: true }) semester!: string | number;
 }
 </script>

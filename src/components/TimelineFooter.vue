@@ -9,13 +9,11 @@
         shigumitsu.github.io
       </a>
       -
-      <a href="javascript:void(0);" v-on:click="toggleDarkMode">
+      <a href="javascript:void(0);" @click="toggleDarkMode">
         Switch to {{ this.darkMode === true ? "light" : "dark" }}
       </a>
       -
-      <a href="javascript:void(0);" v-on:click="toggleBTTF"
-        >Toggle BTTF display</a
-      >
+      <a href="javascript:void(0);" @click="toggleBTTF">Toggle BTTF display</a>
       - Scroll down to read the changelog
     </p>
     <hr />
@@ -37,6 +35,7 @@
 <script lang="ts">
 import { Prop, Vue, Component } from "vue-property-decorator";
 import TimelineCommit from "./TimelineCommit.vue";
+import { AsyncComputed } from "../scripts/AsyncComputed";
 
 @Component({
   components: {
@@ -60,7 +59,6 @@ export default class TimelineFooter extends Vue {
     default: "https://github.com/Shigumitsu/shigumitsu.github.io"
   })
   readonly basedURL!: string;
-  @Prop({ type: Array, default: [] }) commits!: Array<Commit>;
   @Prop({
     type: Boolean,
     default: () => {
@@ -74,7 +72,27 @@ export default class TimelineFooter extends Vue {
     }
   })
   darkMode!: boolean;
-  @Prop({ type: Boolean, default: true }) bttfDisplay!: boolean;
+  @Prop({
+    type: Boolean,
+    default: () => {
+      const state = localStorage.getItem("bttfDisplay");
+      if (state !== null) {
+        if (state === "true") return true;
+        else if (state === "false") return false;
+      }
+      localStorage.setItem("bttfDisplay", "false");
+      return false;
+    }
+  })
+  bttfDisplay!: boolean;
+  @AsyncComputed({ default: [] })
+  async commits() {
+    const response = await fetch(this.commitsURL);
+    if (!response.ok)
+      throw `Could not get commits data: ${response.statusText}`;
+    const json: Array<Commit> = await response.json();
+    return json;
+  }
   async mounted() {
     if (this.darkMode === true) {
       document.body.classList.add("dark");
@@ -82,10 +100,6 @@ export default class TimelineFooter extends Vue {
       document.body.classList.remove("dark");
     }
     this.$emit("bttfToggle", this.bttfDisplay);
-    const response = await fetch(this.commitsURL);
-    if (!response.ok)
-      throw `Could not get commits data: ${response.statusText}`;
-    this.commits = await response.json();
   }
   toggleDarkMode() {
     this.darkMode = !this.darkMode;
@@ -99,6 +113,11 @@ export default class TimelineFooter extends Vue {
   }
   toggleBTTF() {
     this.bttfDisplay = !this.bttfDisplay;
+    if (this.bttfDisplay === true) {
+      localStorage.setItem("bttfDisplay", "true");
+    } else if (this.bttfDisplay === false) {
+      localStorage.setItem("bttfDisplay", "false");
+    }
     this.$emit("bttfToggle", this.bttfDisplay);
   }
 }
