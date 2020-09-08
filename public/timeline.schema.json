@@ -39,7 +39,7 @@
                                 },
                                 "end": {
                                     "type": ["string", "number"],
-                                    "description": "Start date of the project"
+                                    "description": "End date of the project"
                                 },
                                 "bttf": {
                                     "type": "boolean",
