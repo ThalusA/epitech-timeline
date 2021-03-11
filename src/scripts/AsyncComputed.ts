@@ -17,7 +17,7 @@ export function AsyncComputed<T>(
       const method = options.methods[key];
       options.asyncComputed[key] = {
         get: method,
-        ...computedOptions
+        ...computedOptions,
       } as IAsyncComputedValue<T>;
       delete options.methods[key];
     }

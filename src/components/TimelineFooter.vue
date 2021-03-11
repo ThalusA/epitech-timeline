@@ -5,9 +5,7 @@
       See the project on
       <a :href="repoURL" target="_blank">GitLab</a>
       - Based on
-      <a :href="basedURL" target="_blank">
-        shigumitsu.github.io
-      </a>
+      <a :href="basedURL" target="_blank"> shigumitsu.github.io </a>
       -
       <a href="javascript:void(0);" @click="toggleDarkMode">
         Switch to {{ this.darkMode === true ? "light" : "dark" }}
@@ -39,24 +37,24 @@ import { AsyncComputed } from "../scripts/AsyncComputed";
 
 @Component({
   components: {
-    TimelineCommit
-  }
+    TimelineCommit,
+  },
 })
 export default class TimelineFooter extends Vue {
   @Prop({
     type: String,
-    default: "https://gitlab.com/epi-codes/Epitech-2023-Timeline"
+    default: "https://gitlab.com/epi-codes/Epitech-2023-Timeline",
   })
   readonly repoURL!: string;
   @Prop({
     type: String,
     default:
-      "https://gitlab.com/api/v4/projects/epi-codes%2fEpitech-2023-Timeline/repository/commits"
+      "https://gitlab.com/api/v4/projects/epi-codes%2fEpitech-2023-Timeline/repository/commits",
   })
   readonly commitsURL!: string;
   @Prop({
     type: String,
-    default: "https://github.com/Shigumitsu/shigumitsu.github.io"
+    default: "https://github.com/Shigumitsu/shigumitsu.github.io",
   })
   readonly basedURL!: string;
   @Prop({
@@ -69,7 +67,7 @@ export default class TimelineFooter extends Vue {
       }
       localStorage.setItem("theme", "light");
       return false;
-    }
+    },
   })
   darkMode!: boolean;
   @Prop({
@@ -82,7 +80,7 @@ export default class TimelineFooter extends Vue {
       }
       localStorage.setItem("bttfDisplay", "false");
       return false;
-    }
+    },
   })
   bttfDisplay!: boolean;
   @AsyncComputed({ default: [] })
