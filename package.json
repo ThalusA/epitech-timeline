@@ -30,7 +30,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "fibers": "^5.0.0",
     "fork-ts-checker-webpack-plugin": "^5.0.13",
-    "prettier": "^1.19.1",
+    "prettier": "^2.2.1",
     "sass": "^1.32.8",
     "sass-loader": "^9.0.3",
     "typescript": "~3.9.3",
