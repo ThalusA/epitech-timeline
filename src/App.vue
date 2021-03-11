@@ -23,8 +23,8 @@ import moment from "moment";
   components: {
     TimelineChart,
     TimelineHeader,
-    TimelineFooter
-  }
+    TimelineFooter,
+  },
 })
 export default class App extends Vue {
   @Prop({ type: Boolean, default: true }) bttfDisplay!: boolean;
@@ -52,9 +52,9 @@ export default class App extends Vue {
         { type: "string", id: "Project" },
         { type: "string", role: "tooltip" },
         { type: "date", id: "Start" },
-        { type: "date", id: "End" }
+        { type: "date", id: "End" },
       ],
-      ["‎‎‎‎‎‎Timeline", "Now", "", new Date(), new Date()]
+      ["‎‎‎‎‎‎Timeline", "Now", "", new Date(), new Date()],
     ];
     const timelineData = (this.timelineData as unknown) as TimelineInfo;
     for (const moduleInfo of timelineData.modules) {
@@ -96,7 +96,7 @@ export default class App extends Vue {
             projectInfo.name,
             tooltip,
             startDate.toDate(),
-            endDate.toDate()
+            endDate.toDate(),
           ]);
         }
       }

@@ -16,8 +16,8 @@ import { GChart } from "vue-google-charts";
 
 @Component({
   components: {
-    GChart
-  }
+    GChart,
+  },
 })
 export default class TimelineChart extends Vue {
   @Prop({ type: Array, required: true })
@@ -25,22 +25,22 @@ export default class TimelineChart extends Vue {
   data() {
     return {
       chartSettings: {
-        packages: ["timeline"]
+        packages: ["timeline"],
       },
       chartOptions: {
         height: 780,
         timeline: {
-          colorByRowLabel: true
+          colorByRowLabel: true,
         },
         tooltip: {
-          isHtml: true
-        }
+          isHtml: true,
+        },
       },
       chartEvents: {
         onmouseover: this.eventOnmouseover,
         onmouseout: this.setupNowLine,
-        ready: this.setupNowLine
-      }
+        ready: this.setupNowLine,
+      },
     };
   }
   eventOnmouseover({ row }: { row: number }) {

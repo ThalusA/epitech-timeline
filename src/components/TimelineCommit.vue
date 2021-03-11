@@ -33,7 +33,7 @@ export default class TimelineHeader extends Vue {
     return this.commitMessage
       .split("\n")
       .slice(1)
-      .filter(line => line.length > 0);
+      .filter((line) => line.length > 0);
   }
 }
 </script>
