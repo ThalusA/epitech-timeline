@@ -56,7 +56,7 @@ export default class TimelineChart extends Vue {
     const svgPath =
       "#timeline-container > div > div > div:nth-child(1) > div > svg > ";
     const tableElement = document.querySelector(
-      `${svgPath} g:nth-child(2) > rect:nth-child(132)`
+      `${svgPath} g:nth-child(2) > rect:last-child`
     );
     if (tableElement !== null) {
       const tableHeight = tableElement.getAttribute("height");
