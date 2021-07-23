@@ -4086,10 +4086,10 @@ fork-ts-checker-webpack-plugin@^3.1.1:
     tapable "^1.0.0"
     worker-rpc "^0.1.0"
 
-fork-ts-checker-webpack-plugin@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-6.1.1.tgz#c6c3b6506bfb0c7b645cd5c377e82e670d7d71c9"
-  integrity sha512-H8cjLmIxbnAUgxhPOqCqx1Ji3mVHnhGDnKxORZIkkkSsZLJF2IIEUc/+bywPXcWfKSR9K2zJtknRlreCWwGv0Q==
+fork-ts-checker-webpack-plugin@^6.2.13:
+  version "6.2.13"
+  resolved "https://registry.yarnpkg.com/fork-ts-checker-webpack-plugin/-/fork-ts-checker-webpack-plugin-6.2.13.tgz#ee90a21c36d794eca481991a4233bbed6dc703d5"
+  integrity sha512-+j/DfwevcZeSXn5WOv32c/shbcbhcKi88asC2A4TDPtURS3MW/qXiVucGiL1PXdt9PCGB88R3BfaSWZ1C/XGHA==
   dependencies:
     "@babel/code-frame" "^7.8.3"
     "@types/json-schema" "^7.0.5"
@@ -4098,6 +4098,7 @@ fork-ts-checker-webpack-plugin@^6.1.1:
     cosmiconfig "^6.0.0"
     deepmerge "^4.2.2"
     fs-extra "^9.0.0"
+    glob "^7.1.6"
     memfs "^3.1.2"
     minimatch "^3.0.4"
     schema-utils "2.7.0"
